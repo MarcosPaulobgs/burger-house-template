@@ -61,9 +61,12 @@ export default function Hero() {
 
         {/* Lado Direito: Selo / Badge */}
         <div className="hero-badge-container">
-          <div className="hero-badge">
-            <img src="/assets/img/selo.png" alt="Selo de Qualidade" />
-          </div>
+         <div className="hero-badge">
+  <img
+    src="https://res.cloudinary.com/gfbljogf/image/upload/v1788388380/selodequalidade.webp"
+    alt="Selo de Qualidade"
+  />
+</div>
         </div>
       </div>
 
