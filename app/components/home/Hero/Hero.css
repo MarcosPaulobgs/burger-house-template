@@ -1,0 +1,301 @@
+.hero {
+  width: 100%;
+  min-height: 100svh; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 49% center;
+  z-index: 1;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.68);
+  z-index: 2;
+}
+
+.hero-container {
+  position: relative;
+  z-index: 3;
+  max-width: var(--largura-max, 1200px);
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.hero-tagline {
+  color: var(--laranja, #ff8500);
+  font-family: var(--fonte-texto, sans-serif);
+  font-weight: 800;
+  font-size: 0.9rem;
+  letter-spacing: 3px;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+.hero-title-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: fit-content;
+}
+
+.hero-title {
+  font-family: var(--fonte-display, sans-serif);
+  font-size: clamp(4rem, 10vw, 7.5rem);
+  font-weight: 900;
+  color: #ffffff;
+  line-height: 0.92;
+  letter-spacing: 1px;
+  margin-bottom: 1.2rem;
+  text-transform: uppercase;
+  width: max-content;
+}
+
+.hero-title .highlight {
+  color: var(--laranja, #ff8500);
+}
+
+.hero-description {
+  font-family: var(--fonte-texto, sans-serif);
+  font-size: 1rem;
+  color: #e0e0e0;
+  line-height: 1.5;
+  margin-bottom: 2rem;
+  max-width: 460px;
+}
+
+.hero-actions {
+  display: flex;
+  width: 100%;
+  max-width: 460px;
+}
+
+.btn-primary {
+  background-color: var(--laranja, #ff8500);
+  color: #000000;
+  font-family: var(--fonte-display, sans-serif);
+  font-weight: 900;
+  font-size: 1.15rem;
+  padding: 1.1rem 0;
+  border-radius: var(--raio-peq, 6px);
+  text-decoration: none;
+  letter-spacing: 1.5px;
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  box-shadow: 0 4px 25px rgba(255, 133, 0, 0.45);
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(255, 133, 0, 0.65);
+}
+
+/* ==============================================
+   SELO ALINHADO NA ALTURA DO TEXTO (LADO OPOSTO/DIREITA)
+   ============================================== */
+.hero-badge-container {
+  position: absolute;
+  top: 14%;            /* Alinha com a altura da tagline "ARTESANAL" */
+  right: 4%;           /* Encosta no lado oposto (canto direito da tela) */
+  z-index: 5;
+  transform: rotate(4deg);
+}
+
+.hero-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%; 
+  overflow: hidden;   
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+  animation: floatBadge 4s ease-in-out infinite;
+  width: 140px;  
+  height: 140px; 
+}
+
+.hero-badge img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+  transform: scale(1.12); /* Zoom leve de 12% para raspar a transparência sem cortar o texto */
+}
+
+@keyframes floatBadge {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* MÉTRICAS */
+.hero-stats {
+  display: none;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.stat-number {
+  font-family: var(--fonte-display, sans-serif);
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: var(--laranja, #ff8500);
+  line-height: 1;
+  letter-spacing: -0.5px;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.stat-label {
+  font-family: var(--fonte-texto, sans-serif);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #ffffff;
+  line-height: 1.25;
+  margin-top: 0.4rem;
+  text-transform: lowercase;
+  text-align: center;
+  max-width: 120px;
+}
+
+/* ==============================================
+   RESPONSIVIDADE (TABLETS E MOBILE)
+   ============================================== */
+@media (max-width: 1280px) {
+  .hero-badge-container {
+    top: 13%;
+    right: 4%;
+  }
+}
+
+@media (max-width: 1024px) {
+  .hero {
+    padding: 7rem 2rem 4rem;
+    min-height: 90vh;
+  }
+
+  .hero-title {
+    font-size: clamp(3.2rem, 8.5vw, 5.5rem);
+  }
+
+  .hero-badge-container {
+    top: 12%;
+    right: 4%;
+  }
+
+  .hero-badge {
+    width: 110px;
+    height: 110px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    min-height: 100svh;
+    display: flex;
+    align-items: flex-end;
+    padding: 6rem 1.25rem 8.5rem;
+  }
+
+  .hero-badge-container {
+    top: 100px; 
+    right: 15px;
+    transform: rotate(4deg);
+  }
+
+  .hero-badge {
+    width: 90px;
+    height: 90px;
+    margin-top: 0;
+  }
+
+  .hero-actions,
+  .hero-stats {
+    max-width: 100%;
+  }
+
+  .hero-stats {
+    margin-top: 1.75rem;
+  }
+
+  .stat-number {
+    font-size: 1.9rem;
+  }
+
+  .stat-label {
+    font-size: 0.78rem;
+    max-width: 95px;
+  }
+  .hero-video {
+    /* O primeiro valor é o alinhamento horizontal: 
+       0% move o vídeo totalmente para a esquerda, 
+       100% para a direita (o padrão no desktop era 49%). */
+    object-position: 68% center; 
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    padding-bottom: 8.5rem;
+  }
+
+  .hero-title {
+    font-size: clamp(2.1rem, 10.5vw, 3rem);
+  }
+
+  .stat-number {
+    font-size: 1.65rem;
+  }
+
+  .stat-label {
+    font-size: 0.72rem;
+    max-width: 85px;
+  }
+
+  /* Ajuste fino exclusivo para telas menores (Android / iPhones menores) */
+  .hero-badge-container {
+    top: 58px; /* Altere aqui: diminua para subir o selo, aumente para descer */
+    right:39px;
+  }
+
+  .hero-badge {
+    width: 80px;
+    height: 80px;
+  }
+}

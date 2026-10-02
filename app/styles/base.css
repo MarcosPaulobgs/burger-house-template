@@ -1,0 +1,411 @@
+/* ============================================================
+   BASE — resets e utilitários compartilhados
+   ============================================================ */
+
+body {
+  margin: 0;
+  font-family: var(--fonte-texto);
+  color: var(--creme);
+  background: var(--fundo-site);
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  background: none;
+  border: none;
+  appearance: none;
+  -webkit-appearance: none;
+  padding: 0;
+  color: inherit;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--fonte-display);
+  letter-spacing: 0.01em;
+  line-height: 1.02;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+p {
+  margin: 0;
+}
+
+:focus-visible {
+  outline: 3px solid var(--preto);
+  outline-offset: 3px;
+}
+
+.container {
+  max-width: var(--largura-max);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ---------- Rabisco de destaque (fonte manuscrita) ---------- */
+.rabisco {
+  font-family: var(--fonte-script);
+  font-weight: 700;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/* ---------- Etiqueta / eyebrow ---------- */
+.etiqueta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 7px 16px;
+  border: 2.5px solid var(--preto);
+  border-radius: 999px;
+  background: var(--amarelo);
+}
+
+/* ---------- Botões (estilo "tátil", 3D) ---------- */
+.botao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--fonte-display);
+  font-size: 19px;
+  letter-spacing: 0.02em;
+  padding: 14px 30px 12px;
+  border-radius: var(--raio-peq);
+  border: 2.5px solid var(--preto);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.botao:active {
+  transform: translateY(3px);
+}
+
+.botao-primario {
+  background: var(--laranja);
+  color: var(--preto);
+  box-shadow: var(--sombra-botao);
+}
+
+.botao-primario:active {
+  box-shadow: 0 2px 0 var(--laranja-escuro);
+}
+
+.botao-secundario {
+  background: var(--preto);
+  color: var(--branco);
+  box-shadow: var(--sombra-botao-preto);
+}
+
+.botao-secundario:active {
+  box-shadow: 0 2px 0 #000000;
+}
+
+.botao-fantasma {
+  background: transparent;
+  color: var(--preto);
+  border-color: var(--preto);
+}
+
+.botao-fantasma-claro {
+  background: transparent;
+  color: var(--laranja);
+  border-color: var(--laranja);
+}
+
+.botao-fantasma-claro:active {
+  box-shadow: 0 2px 0 var(--laranja);
+}
+
+/* ---------- Placeholder de imagem/foto ---------- */
+.foto-placeholder {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: repeating-linear-gradient(
+    135deg,
+    var(--preto),
+    var(--preto) 2px,
+    #221d15 2px,
+    #221d15 14px
+  );
+  border: 2.5px dashed var(--laranja);
+  border-radius: var(--raio-peq);
+  color: var(--laranja);
+  font-family: var(--fonte-texto);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+  padding: 10px;
+  min-height: 90px;
+}
+
+.foto-placeholder span {
+  max-width: 22ch;
+}
+
+.foto-placeholder.claro {
+  background: repeating-linear-gradient(
+    135deg,
+    #f1e4cf,
+    #f1e4cf 2px,
+    #e9d7ba 2px,
+    #e9d7ba 14px
+  );
+  border-color: var(--preto);
+  color: var(--marrom);
+}
+
+/* ---------- Halftone / textura retrô ---------- */
+.textura-pontos {
+  background-image: radial-gradient(var(--preto-2) 1.6px, transparent 1.6px);
+  background-size: 15px 15px;
+}
+
+.textura-pontos-clara {
+  background-image: radial-gradient(rgba(17, 17, 17, 0.16) 1.6px, transparent 1.6px);
+  background-size: 15px 15px;
+}
+
+/* ---------- Barra de topo simples (usada em subpáginas) ---------- */
+.topo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 13.6px 16px; /* Igualado ao padding do .header da home no mobile */
+  background: #0e0d0d; /* Igualado ao fundo exato do .header da home */
+  color: var(--branco);
+  border-bottom: 4px solid var(--laranja);
+}
+
+.topo img {
+  height: 52px; /* Igualado ao tamanho do logo da home no mobile */
+  width: auto;
+}
+
+.topo strong {
+  font-family: var(--fonte-display);
+  font-weight: 900;
+  font-size: 26px; /* Igualado ao .logo-title da home (1.65rem) */
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.topo-centralizado {
+  justify-content: center;
+  position: relative;
+}
+
+.topo-centralizado .voltar-link {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-left: 0;
+}
+
+.topo .voltar-link {
+  margin-left: auto;
+  font-size: 15px;
+  font-weight: 700;
+  border: 2px solid var(--branco);
+  border-radius: 999px;
+  padding: 8px 16px;
+}
+
+.topo-marca {
+  display: flex;
+  align-items: center;
+  gap: 13.6px; /* Igualado ao gap do .logo-container da home (0.85rem) */
+  color: inherit;
+  text-decoration: none;
+}
+
+.topo-marca-texto {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+
+.topo-marca-texto small {
+  font-family: var(--fonte-script);
+  font-size: 17px; /* Igualado ao .logo-subtitle da home (1.05rem) */
+  font-weight: 400;
+  color: var(--laranja);
+  letter-spacing: 0.02em;
+  line-height: 0.9;
+  text-transform: none;
+  margin-top: -2px;
+}
+
+/* ---------- Status do delivery (aberto/fechado) ---------- */
+.status-delivery-header {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  margin: 0;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.status-delivery-header .status-dot {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  flex: none;
+}
+
+.status-delivery-header strong {
+  font-family: var(--fonte-texto);
+  font-size: 13px;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+@media (max-width: 700px) {
+  .topo-centralizado {
+    flex-wrap: wrap;
+    row-gap: 8px;
+  }
+
+  .topo-centralizado .voltar-link {
+    position: static;
+    transform: none;
+  }
+
+  .status-delivery-header {
+    position: static;
+    transform: none;
+    flex-basis: 100%;
+    justify-content: center;
+  }
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex: none;
+}
+
+.status-dot.aberto {
+  background: #2ecc71;
+  box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.25);
+}
+
+.status-dot.fechado {
+  background: #e74c3c;
+  box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.25);
+}
+
+.status-info-link {
+  color: var(--laranja);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  font-weight: 600;
+}
+
+.como-funciona {
+  border-bottom: 2px dashed #242424; /* Altere a cor (#ccc) e a largura (2px) conforme o design */
+  padding-bottom: 2rem;
+}
+
+.destaques {
+  border-bottom: 2px dashed #242424; /* Mantém a mesma cor e espessura do outro divisor */
+  padding-bottom: 2rem;
+}
+/* ========
+====================================================
+   Ajustes Exclusivos para Desktop / PC (Telas grandes)
+   ============================================================ */
+@media (min-width: 1024px) {
+  .topo {
+    padding: 13.6px 32px; /* Igualado ao padding do .header da home no desktop */
+  }
+
+  .topo img {
+    height: 58px; /* Igualado ao .logo-img da home no desktop */
+  }
+
+  .topo strong {
+    font-size: 31px; /* Igualado ao .logo-title da home (1.95rem) */
+  }
+
+  .topo-marca-texto small {
+    font-size: 18px; /* Igualado ao .logo-subtitle da home (1.15rem) */
+  }
+
+  .status-delivery-header {
+    font-size: 14px;
+  }
+
+  .status-delivery-header strong {
+    font-size: 14px;
+  }
+
+  /* --- Aumento dos textos do Cardápio & Pedidos --- */
+  .secao-menu h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+  }
+
+  .tab {
+    font-size: 1.1rem;
+    padding: 12px 22px;
+  }
+
+  .linha-info h3 {
+    font-size: 1.3rem;
+    margin-bottom: 6px;
+  }
+
+  .linha-info p {
+    font-size: 1.05rem;
+    line-height: 1.45;
+  }
+
+  .linha-preco {
+    font-size: 1.2rem;
+  }
+
+  .linha-qtd-chip {
+    font-size: 0.95rem;
+  }
+
+  .modal-nome {
+    font-size: 1.5rem;
+  }
+
+  .modal-desc,
+  .carrinho-item-info {
+    font-size: 1.1rem;
+  }
+
+  .resumo-item {
+    font-size: 1.15rem;
+  }
+}

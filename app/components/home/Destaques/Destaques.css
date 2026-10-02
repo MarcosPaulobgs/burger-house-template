@@ -1,0 +1,235 @@
+.destaques {
+  background-color: #141413;
+  padding: 5.5rem 1.5rem;
+  width: 100%;
+  position: relative;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.destaques-container {
+  max-width: var(--largura-max, 1200px);
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.destaques-header {
+  text-align: center;
+  margin-bottom: 3.5rem;
+}
+
+.destaques-tagline {
+  color: var(--laranja, #ff8500);
+  font-family: var(--fonte-texto, sans-serif);
+  font-weight: 800;
+  font-size: 0.85rem;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+}
+
+.destaques-title {
+  font-family: var(--fonte-display, sans-serif);
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  font-weight: 900;
+  color: #ffffff;
+  margin-top: 0.4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.destaques-title .highlight {
+  color: var(--laranja, #ff8500);
+}
+
+/* CARROSSEL / GRID */
+.destaques-grid {
+  display: flex;
+  gap: 2rem;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scroll-padding-left: 2rem;
+  padding-bottom: 1.5rem;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.destaques-grid::-webkit-scrollbar {
+  display: none;
+}
+
+/* CARD INDIVIDUAL */
+.destaque-card {
+  position: relative;
+  background-color: #121212;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  scroll-snap-align: start;
+  flex: 0 0 calc((100% - 4rem) / 3);
+  min-width: 320px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+@media (hover: hover) {
+  .destaque-card {
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .destaque-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--laranja, #ff8500);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  }
+
+  .destaque-card:hover .card-img {
+    transform: scale(1.05);
+  }
+}
+
+/* CONTAINER DA IMAGEM E AJUSTE DE ENQUADRAMENTO */
+.card-img-wrapper {
+  width: 100%;
+  height: 260px;
+  overflow: hidden;
+  /* Removido o background e o padding que criavam a borda falsa */
+}
+
+.card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center bottom; /* Puxa o enquadramento para mostrar o topo do hambúrguer */
+  transition: transform 0.4s ease;
+}
+
+.card-content {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.card-title {
+  font-family: var(--fonte-display, sans-serif);
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: #ffffff;
+  margin-bottom: 0.6rem;
+  letter-spacing: 0.5px;
+}
+
+.card-description {
+  font-family: var(--fonte-texto, sans-serif);
+  font-size: 0.9rem;
+  color: #a0a0a0;
+  line-height: 1.45;
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.card-price {
+  font-family: var(--fonte-display, sans-serif);
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #ffffff;
+}
+
+.btn-card {
+  background-color: var(--laranja, #ff8500);
+  color: #000000;
+  font-family: var(--fonte-display, sans-serif);
+  font-size: 0.9rem;
+  font-weight: 900;
+  padding: 0.65rem 1.1rem;
+  border-radius: 6px;
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.btn-card:hover {
+  background-color: #e07400;
+  transform: scale(1.02);
+}
+
+/* BOTÃO VER CARDÁPIO COMPLETO */
+.destaques-cta {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+.btn-ver-cardapio {
+  background-color: #1a1a1a;
+  color: #ffffff;
+  font-family: var(--fonte-display, sans-serif);
+  font-size: 1rem;
+  font-weight: 900;
+  padding: 1rem 2.5rem;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  text-decoration: none;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.btn-ver-cardapio:hover {
+  background-color: #000000;
+  border-color: var(--laranja, #ff8500);
+  transform: translateY(-2px);
+}
+
+/* RESPONSIVO MOBILE */
+@media (max-width: 768px) {
+  .destaques {
+    padding: 3.5rem 0;
+  }
+
+  .destaques-container {
+    padding: 0;
+  }
+
+  .destaques-header {
+    margin-bottom: 2rem;
+    padding: 0 1.25rem;
+  }
+
+  .destaques-grid {
+    gap: 1.25rem;
+    scroll-padding-left: 1.25rem;
+    padding: 0 1.25rem 1.25rem 1.25rem;
+    scroll-snap-type: x proximity;
+  }
+
+  .destaque-card {
+    flex: 0 0 85vw;
+    max-width: 320px;
+    min-width: unset;
+    scroll-snap-align: start;
+  }
+
+.card-img-wrapper {
+    height: 220px;
+    overflow: hidden;
+  }
+
+  .card-img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 20%; /* Foca na parte superior onde o pão começa */
+    transform: scale(1.05); /* Aplica zoom sutil para ocultar as bordas nativas da foto */
+  }
+}

@@ -1,0 +1,95 @@
+/* ============================================================
+   TOKENS — Burger House
+   Identidade: laranja vibrante + preto + branco, retrô/urbana/
+   artesanal. Contornos grossos, tipografia impactante, muito
+   preto sobre laranja.
+   ============================================================ */
+
+   :root {
+    /* ---------- Paleta ---------- */
+    --laranja: #ff8500;
+    --laranja-escuro: #cc6a00;
+    --laranja-fundo: #ff8a00;
+    --amarelo: #ffb000;
+    --preto: #111111;
+    --preto-2: #1b1710;
+    --marrom: #5a2a0a;
+    --branco: #ffffff;
+    --creme: #fff4e6;
+    --linha: rgba(17, 17, 17, 0.12);
+  
+    /* Fundo escuro do site (tema atual). --branco segue usado nos
+       cartões/superfícies claras que ficam "flutuando" sobre esse fundo. */
+    --fundo-site: #201c17;
+    --texto-claro-suave: rgba(255, 244, 230, 0.78);
+  
+    /* ---------- Tipografia (Variáveis Next.js Corrigidas para Mobile) ---------- */
+    --fonte-display: var(--fonte-bebas), "Arial Narrow", sans-serif;
+    --fonte-script: var(--fonte-caveat), cursive;
+    --fonte-texto: var(--fonte-dmsans), "Segoe UI", sans-serif;
+  
+    /* ---------- Formas ---------- */
+    --raio: 14px;
+    --raio-peq: 8px;
+    --sombra-dura: 6px 6px 0 var(--preto);
+    --sombra-dura-peq: 3px 3px 0 var(--preto);
+    --sombra-botao: 0 5px 0 var(--laranja-escuro);
+    --sombra-botao-preto: 0 5px 0 #000000;
+  
+    /* ---------- Container ---------- */
+    --largura-max: 1180px;
+  }
+  
+  /* ---------- Classes Utilitárias Universais para Fontes ---------- */
+  .font-bebas {
+    font-family: var(--fonte-display) !important;
+  }
+  
+  .font-caveat {
+    font-family: var(--fonte-script) !important;
+  }
+  
+  .font-dmsans {
+    font-family: var(--fonte-texto) !important;
+  }
+  
+  /* ---------- Resets Globais Basicos ---------- */
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+    scroll-snap-type: y proximity;
+    /* Evita que o navegador do celular mude as cores por conta própria */
+    color-scheme: light dark;
+  }
+  
+  body {
+    background-color: var(--fundo-site);
+    color: var(--branco);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden; /* Impede vazamento de layout para os lados no celular */
+  }
+  
+  /* Reset de comportamento padrão para botões e links no Mobile */
+  button, a {
+    -webkit-appearance: none;
+    appearance: none;
+    -webkit-tap-highlight-color: transparent; /* Remove o quadrado cinza ao clicar no celular */
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  
+    * {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }

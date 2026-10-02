@@ -1,0 +1,1011 @@
+/* ============================================================
+   PEDIDO — Burger House
+   Reescrito para usar os tokens de marca (tokens.css) e cobrir
+   TODAS as classes usadas pelos componentes em /pedido/components.
+   Identidade: fundo escuro, laranja vibrante, contorno preto
+   grosso, sombra dura (retrô), Bebas Neue nos títulos.
+   ============================================================ */
+
+/* ---------- Base da página ---------- */
+.menu-continuo {
+  max-width: var(--largura-max);
+  margin: 0 auto;
+  /* O padding inferior reserva espaço permanente para a barra flutuante
+     do carrinho (.barra-carrinho, position: fixed, ~58px de altura + 16px
+     de margem até o fim da tela). Sem essa folga, quando o carrinho tem
+     itens a barra fica sobreposta (z-index maior) aos últimos itens da
+     categoria, roubando o clique deles mesmo com a lista rolada até o
+     fim — o "clique não faz nada" que isso causa é fácil de confundir
+     com bug de JS, mas é só a barra tampando o item por cima.
+     Antes esse respiro grande ficava sempre presente, mesmo com o
+     carrinho vazio (quando a barra nem aparece) — sobrava um vão enorme
+     depois do botão "Voltar" à toa. Agora o padding pequeno é o padrão,
+     e o valor grande só entra via .tem-item-no-carrinho (classe some/
+     aparece com o estado do carrinho, ver PedidoClient.js). */
+  padding: 20px 16px 32px;
+}
+
+.menu-continuo.tem-item-no-carrinho {
+  /* A barra flutuante em si só precisa de ~58px de altura + 16px até o
+     fim da tela (~74px) pra não tampar os últimos itens. O valor
+     original (116px) tinha folga demais sobrando entre o botão
+     "Voltar" e a barra — 90px já cobre com uma margem de segurança
+     confortável sem deixar vão vazio. */
+  padding-bottom: 90px;
+}
+
+
+
+/* ---------- Tabs de categoria ---------- */
+.tabs-wrap {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: #0e0d0d;
+  border-bottom: 3px solid var(--preto);
+}
+
+.tabs {
+  display: flex;
+  justify-content: flex-start;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 12px 24px;
+  max-width: var(--largura-max);
+  margin: 0 auto;
+}
+
+.tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.tab {
+  flex: none;
+  font-family: var(--fonte-display);
+  font-weight: 400;
+  font-size: 0.95rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--texto-claro-suave);
+  background: var(--preto-2);
+  border: 2px solid transparent;
+  border-radius: 999px;
+  padding: 9px 16px;
+  white-space: nowrap;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.tab.ativa {
+  background: var(--laranja);
+  color: var(--preto);
+  border-color: var(--preto);
+}
+
+/* ---------- Seção de categoria ---------- */
+.secao-menu {
+  padding-top: 22px;
+  /* Antes era um valor fixo (70px) que não acompanhava a altura real da
+     barra de abas — quando ela cresce (ex.: versão maior no desktop),
+     o título da seção ficava escondido atrás dela ao pular de categoria.
+     A variável --altura-barra-tabs é medida via JS (PedidoClient) e
+     sempre reflete o tamanho real da barra em cada tela. */
+  scroll-margin-top: calc(var(--altura-barra-tabs, 70px) + 14px);
+}
+
+.secao-menu h2 {
+  color: var(--laranja);
+  font-weight: 400;
+  font-size: 1.5rem;
+  margin-bottom: 12px;
+}
+
+.linha-itens-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ---------- Item da lista ---------- */
+.linha-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  background: var(--preto-2);
+  border: 2.5px solid var(--preto);
+  border-radius: var(--raio);
+  padding: 12px;
+  cursor: pointer;
+  transition: opacity 0.12s ease;
+}
+
+.linha-item:active {
+  opacity: 0.85;
+}
+
+.linha-info {
+  min-width: 0;
+}
+
+.linha-info h3 {
+  font-family: var(--fonte-texto);
+  color: var(--branco);
+  font-weight: 700;
+  font-size: 1.05rem;
+  text-transform: none;
+  letter-spacing: 0;
+  margin-bottom: 4px;
+}
+
+.linha-info p {
+  color: var(--texto-claro-suave);
+  font-size: 0.88rem;
+  line-height: 1.35;
+  margin-bottom: 8px;
+}
+
+.linha-preco-linha {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.linha-preco {
+  font-family: var(--fonte-display);
+  font-weight: 400;
+  color: var(--laranja);
+  font-size: 1.1rem;
+  letter-spacing: 0.02em;
+}
+
+.linha-qtd-chip {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--preto);
+  background: var(--amarelo);
+  border: 1.5px solid var(--preto);
+  border-radius: 999px;
+  padding: 2px 10px;
+}
+
+.linha-foto {
+  position: relative;
+  flex: none;
+  width: 68px;
+  height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  background: repeating-linear-gradient(135deg,
+      var(--preto),
+      var(--preto) 2px,
+      #221d15 2px,
+      #221d15 14px);
+  border: 2px dashed var(--laranja);
+  border-radius: var(--raio-peq);
+  color: var(--laranja);
+}
+
+.linha-foto-mais {
+  position: absolute;
+  bottom: -6px;
+  right: -6px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--laranja);
+  color: var(--preto);
+  font-weight: 800;
+  font-size: 1rem;
+  border: 2px solid var(--preto);
+  border-radius: 50%;
+}
+
+.pedido-cta-voltar {
+  display: flex;
+  justify-content: center;
+  padding: 28px 0 8px;
+}
+
+/* Hover só em dispositivo com mouse de verdade (hover:hover + pointer:fine).
+   Sem essa trava, no celular o efeito de hover "gruda" no botão depois
+   que você tira o dedo do toque, até tocar em outro lugar da tela. */
+@media (hover: hover) and (pointer: fine) {
+  .pedido-cta-voltar .botao-fantasma-claro:hover {
+    background: var(--laranja);
+    color: var(--preto);
+  }
+}
+
+/* ---------- Barra flutuante do carrinho ---------- */
+.barra-carrinho {
+  position: fixed;
+  left: 16px;
+  right: 16px;
+  bottom: -100px;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: calc(var(--largura-max) - 32px);
+  margin: 0 auto;
+  background: var(--laranja);
+  color: var(--preto);
+  border: 2.5px solid var(--preto);
+  border-radius: var(--raio-peq);
+  padding: 14px 20px;
+  font-family: var(--fonte-display);
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+  transition: bottom 0.25s ease;
+}
+
+.barra-carrinho.visivel {
+  bottom: calc(16px + env(safe-area-inset-bottom));
+}
+
+.barra-carrinho .esquerda {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.barra-carrinho .contagem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  background: var(--preto);
+  color: var(--laranja);
+  border-radius: 50%;
+  font-size: 0.9rem;
+}
+
+.barra-carrinho .direita {
+  font-size: 1.05rem;
+}
+
+/* ============================================================
+   OVERLAYS (modal do item + painel do carrinho/checkout)
+   ============================================================ */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  background: rgba(17, 17, 17, 0.7);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.overlay.aberto {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.painel {
+  width: 100%;
+  max-width: 560px;
+  /* vh fixo corta o painel quando a barra de endereço do celular
+     aparece/some (a altura "real" da tela muda). dvh acompanha isso;
+     o vh acima fica só de fallback pra navegador sem suporte. */
+  max-height: 88vh;
+  max-height: 88dvh;
+  overflow-y: auto;
+  /* Scroll com inércia no iOS — sem isso a rolagem dentro do painel
+     fica "seca"/travada em vez de suave. */
+  -webkit-overflow-scrolling: touch;
+  background: var(--fundo-site);
+  color: var(--creme);
+  border: 2.5px solid var(--preto);
+  border-bottom: none;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  box-shadow: 0 -6px 0 var(--preto);
+  /* Respiro extra embaixo em telas com home indicator (iPhone sem
+     botão físico) pra não deixar o botão de avançar colado nele. */
+  padding: 20px 20px calc(24px + env(safe-area-inset-bottom));
+}
+
+.painel-topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.rotulo-secao-carrinho {
+  font-family: var(--fonte-display);
+  font-weight: 400;
+  color: var(--laranja);
+  font-size: 1.35rem;
+  letter-spacing: 0.02em;
+}
+
+.fechar-btn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--preto-2);
+  color: var(--creme);
+  border: 2px solid var(--preto);
+  border-radius: 50%;
+  font-size: 1rem;
+}
+
+/* ---------- Modal do item ---------- */
+.modal-foto {
+  width: 100%;
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.4rem;
+  color: var(--laranja);
+  background: repeating-linear-gradient(135deg,
+      var(--preto),
+      var(--preto) 2px,
+      #221d15 2px,
+      #221d15 14px);
+  border: 2px dashed var(--laranja);
+  border-radius: var(--raio-peq);
+  margin-bottom: 14px;
+}
+
+.modal-nome {
+  font-family: var(--fonte-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  color: var(--branco);
+  font-size: 1.5rem;
+  margin-bottom: 6px;
+}
+
+.modal-desc {
+  color: var(--texto-claro-suave);
+  font-size: 1rem;
+  line-height: 1.45;
+  margin-bottom: 10px;
+}
+
+.modal-preco-unit {
+  font-family: var(--fonte-display);
+  font-weight: 400;
+  color: var(--laranja);
+  font-size: 1.3rem;
+  margin-bottom: 16px;
+}
+
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  background: var(--preto-2);
+  border: 2px solid var(--preto);
+  border-radius: var(--raio-peq);
+  padding: 8px 18px;
+  width: fit-content;
+  margin-bottom: 16px;
+}
+
+.stepper button {
+  width: 30px;
+  height: 30px;
+  background: var(--laranja);
+  color: var(--preto);
+  border: 2px solid var(--preto);
+  border-radius: 50%;
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
+.stepper span {
+  font-family: var(--fonte-display);
+  font-size: 1.1rem;
+  min-width: 20px;
+  text-align: center;
+}
+
+.campo-label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--laranja);
+  margin: 14px 0 6px;
+}
+
+.modal-observacao,
+.opcoes~input[type="text"],
+input[type="text"] {
+  width: 100%;
+  background: var(--preto-2);
+  color: var(--creme);
+  border: 2px solid var(--preto);
+  border-radius: var(--raio-peq);
+  padding: 10px 12px;
+  font-family: var(--fonte-texto);
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.modal-observacao {
+  resize: none;
+  margin-bottom: 4px;
+}
+
+.btn-add-carrinho {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--fonte-display);
+  font-weight: 400;
+  font-size: 1.2rem;
+  letter-spacing: 0.02em;
+  background: var(--laranja);
+  color: var(--preto);
+  border: 2.5px solid var(--preto);
+  border-radius: var(--raio-peq);
+  padding: 14px 20px;
+  margin-top: 18px;
+  transition: opacity 0.12s ease;
+}
+
+.btn-add-carrinho:active {
+  opacity: 0.85;
+}
+
+/* ---------- Carrinho (lista de itens) ---------- */
+.aviso-vazio,
+.resumo-vazio {
+  text-align: center;
+  color: var(--texto-claro-suave);
+  padding: 24px 10px;
+  font-size: 0.95rem;
+}
+
+.carrinho-item {
+  display: grid;
+  grid-template-columns: 1fr auto auto auto;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--linha);
+}
+
+.carrinho-item-info {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.nome-mini {
+  color: var(--branco);
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.resumo-obs {
+  color: var(--texto-claro-suave);
+  font-size: 0.85rem;
+}
+
+.mini-contador {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mini-contador button {
+  color: var(--laranja);
+  font-weight: 800;
+  font-size: 1.3rem;
+  line-height: 1;
+  padding: 4px;
+}
+
+.preco-mini {
+  color: var(--laranja);
+  font-weight: 700;
+  font-size: 1rem;
+  white-space: nowrap;
+}
+
+.remover-item-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--laranja);
+  padding: 4px;
+}
+
+.remover-item-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.carrinho-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--fonte-display);
+  font-weight: 400;
+  color: var(--branco);
+  font-size: 1.35rem;
+  padding-top: 14px;
+  margin-top: 6px;
+  border-top: 2px solid var(--preto);
+}
+
+/* ---------- Navegação do painel (voltar / avançar) ---------- */
+.painel-nav {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.btn {
+  flex: 1;
+  font-family: var(--fonte-display);
+  font-weight: 400;
+  font-size: 1.1rem;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  border-radius: var(--raio-peq);
+  border: 2.5px solid var(--preto);
+  padding: 13px 16px;
+  text-align: center;
+  /* Altura fixa (não min-height) baseada no botão de 2 linhas
+     ("Enviar pedido no WhatsApp"), pra todo botão de navegação — em
+     qualquer etapa — ter sempre o mesmo tamanho, mesmo com texto de
+     1 linha só. */
+  height: 4.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-voltar {
+  background: transparent;
+  color: var(--creme);
+  border-color: var(--texto-claro-suave);
+}
+
+.btn-avancar {
+  background: var(--laranja);
+  color: var(--preto);
+  transition: opacity 0.12s ease;
+}
+
+.btn-avancar:active {
+  opacity: 0.85;
+}
+
+.btn-finalizar {
+  background: var(--laranja);
+  color: var(--preto);
+}
+
+.aviso-validacao {
+  color: #ffb4a8;
+  background: rgba(231, 76, 60, 0.12);
+  border: 1.5px solid #e74c3c;
+  border-radius: var(--raio-peq);
+  padding: 10px 12px;
+  font-size: 0.85rem;
+  margin-top: 14px;
+}
+
+/* ---------- Etapas: entrega / pagamento ---------- */
+.passo-sub {
+  color: var(--texto-claro-suave);
+  font-size: 1rem;
+  line-height: 1.4;
+  margin-bottom: 16px;
+}
+
+.opcoes {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.opcao {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: var(--preto-2);
+  border: 2px solid var(--preto);
+  border-radius: var(--raio-peq);
+  padding: 14px 16px;
+  cursor: pointer;
+}
+
+.opcao.selecionada {
+  border-color: var(--laranja);
+  background: rgba(255, 133, 0, 0.08);
+}
+
+.opcao .txt {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.opcao .txt strong {
+  color: var(--branco);
+  font-size: 1.05rem;
+}
+
+.opcao .txt small {
+  color: var(--texto-claro-suave);
+  font-size: 0.88rem;
+}
+
+.marca-check {
+  width: 22px;
+  height: 22px;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--preto);
+  background: var(--laranja);
+  border: 2px solid var(--preto);
+  border-radius: 50%;
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+/* ---------- Etapa: resumo ---------- */
+.resumo-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--linha);
+  color: var(--creme);
+  font-size: 1rem;
+}
+
+/* Rótulo com ícone (substitui os antigos emojis: 👤 🏠 📍 💳) */
+.resumo-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.resumo-icone {
+  width: 18px;
+  height: 18px;
+  min-width: 18px;
+  color: var(--laranja);
+}
+
+.resumo-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--fonte-display);
+  font-weight: 400;
+  color: var(--laranja);
+  font-size: 1.4rem;
+  padding-top: 14px;
+  margin-top: 6px;
+  border-top: 2px solid var(--preto);
+}
+
+/* ============================================================
+   Tela de sucesso (pós-checkout, antes do WhatsApp)
+   ============================================================ */
+.overlay-sucesso {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(17, 17, 17, 0.88);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.overlay-sucesso.ativo {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.cartao-sucesso {
+  width: 100%;
+  max-width: 420px;
+  text-align: center;
+  background: var(--fundo-site);
+  border: 2.5px solid var(--preto);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra-dura);
+  padding: 32px 24px 26px;
+}
+
+.icone-check {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+  border: 2.5px solid var(--preto);
+  border-radius: 50%;
+  font-size: 1.6rem;
+}
+
+.sucesso-titulo {
+  font-family: var(--fonte-display);
+  font-weight: 400;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.sucesso-texto {
+  color: var(--creme);
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+.sucesso-sub {
+  color: var(--texto-claro-suave);
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+}
+
+.btn-abrir-whats {
+  width: 100%;
+  font-family: var(--fonte-display);
+  font-weight: 400;
+  font-size: 1.15rem;
+  letter-spacing: 0.02em;
+  background: var(--laranja);
+  color: var(--preto);
+  border: 2.5px solid var(--preto);
+  border-radius: var(--raio-peq);
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  transition: opacity 0.12s ease;
+}
+
+.btn-abrir-whats:active {
+  opacity: 0.85;
+}
+
+.btn-voltar-inicio {
+  width: 100%;
+  background: transparent;
+  color: var(--texto-claro-suave);
+  border: none;
+  font-size: 0.88rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  padding: 6px;
+}
+
+/* ============================================================
+   Desktop (telas grandes)
+   ============================================================ */
+@media (min-width: 1024px) {
+  .tabs {
+    /* flex-wrap: nowrap forçado — o objetivo aqui é NUNCA quebrar linha
+       nem cortar. Como pediram pra aumentar ~38% o tamanho das abas,
+       mas isso não cabe numa linha só na largura mínima do desktop
+       (1024px), o tamanho agora é FLUIDO (cresce com a tela, via
+       clamp/vw): no mínimo (1024px) fica no tamanho antigo, seguro; em
+       telas comuns (~1400-1600px) fica ~38% maior; em telas enormes
+       para de crescer (limite no .tab abaixo) pra não ficar gigante à
+       toa. max-width um pouco maior que o resto do site (1180px) só
+       pra essa barra, porque no tamanho maior o texto das 9 abas
+       precisa de mais espaço horizontal do que o conteúdo normal usa. */
+    flex-wrap: nowrap;
+    justify-content: center;
+    gap: clamp(5px, 0.6vw, 8px);
+    padding: 14px 16px;
+    max-width: 1400px;
+  }
+
+  .tab {
+    flex: none;
+    font-size: clamp(0.7rem, 0.23rem + 0.74vw, 1.05rem);
+    padding: 0.55em 1.05em;
+    white-space: nowrap;
+    text-align: center;
+  }
+
+  .linha-itens-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  .pedido-cta-voltar {
+    /* No PC o botão "Voltar" fica centralizado na linha; o carrinho sai
+       do fluxo e vira um botão fixo ancorado no canto da tela (ver
+       override de .barra-carrinho logo abaixo). No celular esse
+       justify-content não faz diferença, porque lá a barra continua
+       "position: fixed" (fora do fluxo). */
+    justify-content: center;
+    align-items: center;
+  }
+
+  .barra-carrinho {
+    /* Continua flutuante, mas fixado no canto inferior direito da tela
+       (fora do container centralizado), em vez de dividir a linha com o
+       botão "Voltar". */
+    position: fixed;
+    left: auto;
+    right: 24px;
+    bottom: 24px;
+    max-width: 320px;
+    width: auto;
+    margin: 0;
+    transition: none;
+  }
+
+  .barra-carrinho.visivel {
+    bottom: 24px;
+  }
+
+  /* Enquanto o carrinho está vazio ela simplesmente não aparece — sem
+     o truque de "bottom: -100px" (que só faz sentido pro modo fixo). */
+  .barra-carrinho:not(.visivel) {
+    display: none;
+  }
+
+  .painel {
+    max-width: 480px;
+    border-radius: 20px;
+    margin-bottom: 32px;
+    box-shadow: var(--sombra-dura);
+  }
+
+  .overlay {
+    align-items: center;
+  }
+
+  /* (tamanho da .tab já definido lá em cima, de forma fluida) */
+
+  .secao-menu h2 {
+    font-size: 1.6rem;
+  }
+
+  .linha-item {
+    padding: 12px;
+  }
+
+  .linha-foto {
+    width: 64px;
+    height: 64px;
+    font-size: 1.3rem;
+  }
+
+  .linha-info h3 {
+    font-size: 1.1rem;
+  }
+
+  .linha-info p {
+    font-size: 0.92rem;
+  }
+
+  .linha-preco {
+    font-size: 1.1rem;
+  }
+
+  .linha-qtd-chip {
+    font-size: 0.78rem;
+  }
+
+  .modal-nome {
+    font-size: 1.4rem;
+  }
+
+  .modal-desc {
+    font-size: 1rem;
+  }
+
+  .nome-mini {
+    font-size: 1rem;
+  }
+
+  .resumo-item {
+    font-size: 1rem;
+  }
+}
+
+/* ============================================================
+   Header Específico da Página de Pedidos
+   ============================================================ */
+.header-pedido-container {
+  justify-content: space-between !important;
+}
+
+.header-pedido-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.badge-delivery {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(231, 76, 60, 0.15);
+  color: #ff6b6b;
+  border: 1px solid rgba(231, 76, 60, 0.4);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.badge-delivery .ponto-status {
+  width: 7px;
+  height: 7px;
+  background-color: #e74c3c;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.btn-info-header {
+  background: var(--preto-2);
+  color: var(--branco);
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-info-header:hover {
+  border-color: var(--laranja);
+  color: var(--laranja);
+}
+
+@media (max-width: 768px) {
+  .header-pedido-info {
+    gap: 8px;
+  }
+
+  .badge-delivery {
+    font-size: 0.72rem;
+    padding: 4px 8px;
+  }
+
+  .btn-info-header {
+    font-size: 0.75rem;
+    padding: 4px 10px;
+  }
+
+  .btn {
+    padding: 9px 16px;
+    height: 4rem;
+  }
+}

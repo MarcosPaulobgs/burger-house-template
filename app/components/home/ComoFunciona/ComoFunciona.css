@@ -1,0 +1,223 @@
+.como-funciona {
+  padding: 5rem 1.5rem;
+  background-color: var(--preto, #0d0d0d);
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.como-funciona-container {
+  max-width: var(--largura-max, 1200px);
+  margin: 0 auto;
+}
+
+.como-funciona-title {
+  font-family: var(--fonte-display, sans-serif);
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: var(--laranja, #ff8500);
+  letter-spacing: 2px;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+}
+
+.como-funciona-subtitle {
+  font-family: var(--fonte-texto, sans-serif);
+  font-size: 1.15rem; 
+  color: var(--texto-claro-suave, #a3a3a3);
+  margin-bottom: 2.5rem;
+}
+
+/* ==============================================
+   BOTÕES DE ALTERNÂNCIA (TOGGLE)
+   ============================================== */
+.toggle-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
+
+.toggle-container {
+  display: inline-flex;
+  gap: 0.5rem;
+  background-color: #121212;
+  border: 1px solid var(--linha, #262626);
+  padding: 0.4rem;
+  border-radius: 50px;
+}
+
+.toggle-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: var(--texto-claro-suave, #a3a3a3);
+  font-family: var(--fonte-texto, sans-serif);
+  font-size: 0.9rem;
+  font-weight: 700;
+  padding: 0.65rem 1.5rem;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.toggle-btn:hover {
+  color: var(--branco, #ffffff);
+  border-color: rgba(255, 255, 255, 0.8);
+}
+
+.toggle-btn.active {
+  background-color: var(--laranja, #ff8500);
+  border-color: var(--laranja, #ff8500);
+  color: var(--preto, #0d0d0d);
+  box-shadow: 0 4px 14px rgba(255, 133, 0, 0.3);
+}
+
+/* ==============================================
+   GRID E CARDS COM IMAGEM DE FUNDO
+   ============================================== */
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.step-card {
+  position: relative;
+  background-color: #121212;
+  border: 1px solid var(--laranja, #ff8500);
+  border-radius: 12px;
+  padding: 2rem 1.5rem;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Overlay escuro sobre as imagens para destacar o texto */
+.step-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 1;
+}
+
+.step-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(255, 133, 0, 0.25);
+}
+
+/* Fotos de fundo aplicadas via Cloudinary aos 3 blocos */
+.step-card:nth-child(1) {
+  background-image: url('/assets/img/loja-1.jpg');
+}
+
+.step-card:nth-child(2) {
+  background-image: url('/assets/img/loja-2.jpg');
+}
+
+.step-card:nth-child(3) {
+  background-image: url('/assets/img/loja-3.jpg');
+}
+
+/* Garante que o texto e os ícones fiquem na frente do overlay escuro */
+.step-header,
+.step-title,
+.step-description {
+  position: relative;
+  z-index: 2;
+}
+
+.step-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.2rem;
+}
+
+.step-number {
+  font-family: var(--fonte-display, sans-serif);
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: var(--laranja, #ff8500);
+  line-height: 1;
+}
+
+/* Container do Ícone travado em 44x44px */
+.step-icon-box {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  max-width: 44px;
+  max-height: 44px;
+  border-radius: 10px;
+  background-color: rgba(255, 133, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--laranja, #ff8500);
+  flex-shrink: 0;
+  overflow: hidden;
+  backdrop-filter: blur(4px);
+}
+
+.step-icon-box svg {
+  width: 28px !important;
+  height: 28px !important;
+  max-width: 28px !important;
+  max-height: 28px !important;
+}
+
+.step-title {
+  font-family: var(--fonte-texto, sans-serif); 
+  font-size: 1.1rem;
+  font-weight: 700; 
+  color: var(--branco, #ffffff);
+  letter-spacing: 0.5px; 
+  line-height: 1.3;
+  margin-bottom: 0.8rem;
+  text-transform: uppercase;
+}
+
+.step-description {
+  font-family: var(--fonte-texto, sans-serif);
+  font-size: 1rem;
+  color: var(--texto-claro-suave, #e0e0e0);
+  line-height: 1.6; 
+}
+
+/* ==============================================
+   RESPONSIVIDADE (TABLETS E MOBILE)
+   ============================================== */
+@media (max-width: 900px) {
+  .steps-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .como-funciona {
+    padding: 3.5rem 1.25rem;
+  }
+
+  .como-funciona-title {
+    font-size: 1.8rem;
+  }
+
+  .como-funciona-subtitle {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .toggle-btn {
+    padding: 0.55rem 1.2rem;
+    font-size: 0.85rem;
+  }
+}
